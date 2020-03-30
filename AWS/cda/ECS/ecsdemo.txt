@@ -1,0 +1,67 @@
+
+--------------------------------------------------------------------------
+1.Create ECS Clsuer
+
+Clusters --It is group of EC2
+
+Create cluster -->EC2 linux +networking 
+    ->Instance Configuration: type t2.micro , number of Inst:1 EBS : min 22 GB
+     Give key pair
+     Select VPC and subnet
+     create new Security group for ECS  Or give any existing SG of EC2
+
+     container instance IAM role --create ecsInstanceRole if not exist
+     This is role used by ECS Instances. They need to call ECS API from EC2.
+
+     and click create Cluster
+
+    We need to set capacity provider as beloew:
+       Go to cluster-->capacity provider tab--> create :
+       name :
+       groupname :mygrp1
+       managed scaling
+       Target capacity %: 100 full use EC2 in cluster
+       termination protection :Disabled
+       Click create
+#---------------------------------------------------------------------------------     
+2.Create Task defination
+
+    Go to task Defination -->create new task Defination
+    launch type : ec2
+    def name:taskdef1
+    task role:create or select
+    network mode :default
+    task execution Role
+    task memory :2048
+    task CPU :128
+
+    Add container -->name :container1
+                    Image : https://hub.docker.com/_/oracle-database-enterprise-edition
+
+    else all kep default-->create 
+
+#--------------------------------------------------------------------------------
+A service lets you specify how many copies of your task definition to run and maintain in a cluster.
+
+service -->create-->
+    launch type : EC2
+    Task Definition : select name and version
+    cluster name : select your cluster name
+    service name :give name Ex service1
+    service type :replica
+    number of task :1
+    Minimum healthy percent: keep default 100
+    Maximum percent: keep default 200
+    Deployments:rolling update
+    Task Placement:keep default AZ balanced spread
+
+    Click NEXT
+
+    Load balancer type : keep default None
+
+    Click NEXT
+    Set Auto Scaling (optional) : keep default (Do not adjust the service’s desired count)
+
+    Click Create 
+
+    Now go to services tab and see that service is active   

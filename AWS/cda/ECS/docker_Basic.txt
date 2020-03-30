@@ -1,0 +1,123 @@
+#First go through tutorialspoint about WHAT IS DOCKER EXACTLY?
+https://www.tutorialspoint.com/docker/index.htm
+
+https://docs.aws.amazon.com/AmazonECS/latest/developerguide/docker-basics.html
+
+#------------------------------------------------------------------------------------------------------------
+Points :
+
+1.Docker is a container management service. The keywords of Docker are develop, ship and run anywhere. The whole idea of   Docker is for developers to easily develop applications, ship them into containers which can then be deployed anywhere.
+
+2.Docker Container :Containers are instances of Docker images that can be run using the Docker run command. The basic purpose of Docker is to run containers.
+
+3.Docker Image : In Docker, everything is based on Images. An image is a combination of a file system and parameters.
+
+4.Docker Hub : It is a registry service on the cloud. You can download Docker images that are built by other communities. You can also upload your own Docker built images to Docker hub. 
+The official site for Docker hub is − https://www.docker.com/community-edition#/add_ons
+
+#------------------------------------------------------------------------------------------------------------
+
+#---Docker HUB :Sin up here
+Ref :https://www.tutorialspoint.com/docker/docker_hub.htm
+
+
+#---Install docker software on amazon linux----------
+sudo yum update -y
+sudo amazon-linux-extras install docker
+sudo service docker start
+
+sudo usermod -a -G docker ec2-user
+docker info
+
+
+#-----Install Docker software on Ubuntu------------ 
+sudo apt-get install docker
+sudo apt-get install docker.io
+
+#----Install Docker on windows------------
+https://www.tutorialspoint.com/docker/docker_installation.htm
+
+#----More docker cammands
+docker images # Gives list of images on your machine
+sudo docker ps #list of running containers of your system
+
+
+#---DEMO 1 Run Container of CENTOS Operating system ------------------------------------------------------------------------------
+#Running a CENTOS linux operating ssystem Container on your laptop
+
+sudo docker run -it centos /bin/bash
+
+Note here that:
+1.We are using the sudo command to ensure that it runs with root access.
+2.Here, centos is the name of the image we want to download from Docker Hub and install on our Ubuntu machine.
+3. ─it is used to mention that we want to run in interactive mode.
+4. /bin/bash is used to run the bash shell once CentOS is up and running.
+
+Now it is a CENTOS running on your system. You will get its consol, not an image.
+
+Now if you want to stop it.
+
+Run below cammands
+1.get container id using :  sudo docker ps
+2.Stop that specific container using syntax: docker stop ContainerID
+   Ex. sudo docker stop 1b33ccb618e8
+
+#---------------------------------------------------------------------------------
+
+
+#----Demo 2 Install Jenkin 
+docker pull jenkins
+sudo docker run -p 8080:8080 -p 50000:50000 jenkins 
+
+
+
+#----Demo 3----------------------------------------------------------------------
+#---Now create Container of amazonlinux OS on your system
+sudo docker pull amazonlinux
+docker run amazonlinux
+
+
+
+#--------------------------------------------------------------------------------
+List of DOCKER Commands:
+  attach      Attach local standard input, output, and error streams to a running container
+  build       Build an image from a Dockerfile
+  commit      Create a new image from a container's changes
+  cp          Copy files/folders between a container and the local filesystem
+  create      Create a new container
+  diff        Inspect changes to files or directories on a container's filesystem
+  events      Get real time events from the server
+  exec        Run a command in a running container
+  export      Export a container's filesystem as a tar archive
+  history     Show the history of an image
+  images      List images
+  import      Import the contents from a tarball to create a filesystem image
+  info        Display system-wide information
+  inspect     Return low-level information on Docker objects
+  kill        Kill one or more running containers
+  load        Load an image from a tar archive or STDIN
+  login       Log in to a Docker registry
+  logout      Log out from a Docker registry
+  logs        Fetch the logs of a container
+  pause       Pause all processes within one or more containers
+  port        List port mappings or a specific mapping for the container
+  ps          List containers
+  pull        Pull an image or a repository from a registry
+  push        Push an image or a repository to a registry
+  rename      Rename a container
+  restart     Restart one or more containers
+  rm          Remove one or more containers
+  rmi         Remove one or more images
+  run         Run a command in a new container
+  save        Save one or more images to a tar archive (streamed to STDOUT by default)
+  search      Search the Docker Hub for images
+  start       Start one or more stopped containers
+  stats       Display a live stream of container(s) resource usage statistics
+  stop        Stop one or more running containers
+  tag         Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE
+  top         Display the running processes of a container
+  unpause     Unpause all processes within one or more containers
+  update      Update configuration of one or more containers
+  version     Show the Docker version information
+  wait        Block until one or more containers stop, then print their exit codes
+  #--------------------------------------------------------------------------------------
