@@ -1,0 +1,178 @@
+@Auther : tanaji sutar
+#This file explains how to install single node clsuter on ubuntu
+
+
+https://linuxize.com/post/how-to-set-up-ssh-keys-on-ubuntu-1804/
+https://www.michael-noll.com/tutorials/running-hadoop-on-ubuntu-linux-single-node-cluster/
+https://www.guru99.com/how-to-install-hadoop.html
+
+
+localhost: tms@localhost: Permission denied (publickey).
+localhost: tms@localhost: Permission denied (publickey).
+
+
+tms@tms-Lenovo-ideapad-320-15ISK:~$ ssh-keygen -t rsa -P ""
+Generating public/private rsa key pair.
+Enter file in which to save the key (/home/tms/.ssh/id_rsa): 
+/home/tms/.ssh/id_rsa already exists.
+Overwrite (y/n)? 
+tms@tms-Lenovo-ideapad-320-15ISK:~$ cat $HOME/.ssh/id_rsa.pub >> $HOME/.ssh/authorized_keys
+tms@tms-Lenovo-ideapad-320-15ISK:~$ ssh localhost
+Last login: Sat Dec 29 10:52:44 2018 from 127.0.0.1
+tms@tms-Lenovo-ideapad-320-15ISK:~$ 
+
+
+
+/usr/lib/jvm/java-8-openjdk-amd64
+
+
+
+
+Step : edit .bashrc in /home/tms dir and run source .bashrc
+
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+export SPARK_HOME=/home/tms/tmsCodeGround/myInstallDir/spark-2.3.2-bin-hadoop2.7
+export PATH=$PATH:/home/tms/tmsCodeGround/myInstallDir/spark-2.3.2-bin-hadoop2.7/bin
+export PYTHONPATH=$SPARK_HOME/python/:$PYTHONPATH
+export PYTHONPATH=$SPARK_HOME/python/lib/py4j-0.10.7-src.zip:$PYTHONPATH
+export HIVE_HOME=/home/tms/tmsCodeGround/myInstallDir/apache-hive-2.1.0-bin
+export PATH=$PATH:/home/tms/tmsCodeGround/myInstallDir/apache-hive-2.1.0-bin/bin
+export HADOOP_HOME=/home/tms/tmsCodeGround/myInstallDir/hadoop-2.7.3
+export PATH=$PATH:/home/tms/tmsCodeGround/myInstallDir/hadoop-2.7.3/bin
+
+---------------------------------------------------------------------------------
+Step : change hadoop-env.sh
+
+/home/tms/tmsCodeGround/myInstallDir/hadoop-2.7.3/etc/hadoop 
+open file hadoop-env.sh and change
+export JAVA_HOME =${JAVA_HOME}
+to
+export JAVA_HOME =/usr/lib/jvm/java-8-openjdk-amd64
+---------------------------------------------------------------------------------
+step : change core-site.sh Add  below
+
+<configuration>
+<property>
+<name>hadoop.tmp.dir</name>
+<value>/home/tms/tmsCodeGround/myInstallDir/hadoop-2.7.3/mytemp</value>
+<description>Parent directory for other temporary directories.</description>
+</property>
+<property>
+<name>fs.defaultFS </name>
+<value>hdfs://localhost:54310</value>
+<description>The name of the default file system. </description>
+</property>
+</configuration>
+
+
+---------------------------------------------------------------------------------
+step hdfs-site.xml
+
+<configuration>
+<property>
+<name>dfs.replication</name>
+<value>1</value>
+<description>Default block replication.</description>
+</property>
+<property>
+<name>dfs.datanode.data.dir</name>
+<value>/home/tms/tmsCodeGround/myInstallDir/hadoop-2.7.3/tms_datanodetempdir</value>
+</property>
+</configuration>
+
+
+---------------------------------------------------------------------------------
+step mapred.xml
+
+<configuration>
+<property>
+<name>mapreduce.jobtracker.address</name>
+<value>localhost:54311</value>
+<description>MapReduce job tracker runs at this host and port.
+</description>
+</property>
+</configuration>
+
+---------------------------------------------------------------------------------
+Step :format namenode
+
+/bin/./hdfs dfs namenode
+
+---------------------------------------------------------------------------------
+step
+
+go to sbin
+./start-yarn.sh  --yarn must be first
+./start-dfs.sh
+
+Check with jps
+2688 DataNode
+2066 NodeManager
+2547 NameNode
+1844 ResourceManager
+4004 Jps
+2858 SecondaryNameNode
+1823 xdman.jar
+
+---------------------------------------------------------------------------------
+errors:
+ Call From localhost/127.0.0.1 to localhost:54310
+ 
+ then try :  
+ telnet localhost 54310
+
+
+jps 
+
+if namenode not found
+
+run  ->>		hdfs dfs namenode
+v19/07/31 23:30:29 WARN namenode.FSNamesystem: Encountered exception loading fsimage
+org.apache.hadoop.hdfs.server.common.InconsistentFSStateException: Directory /app/hadoop/tmp/dfs/name is in an inconsistent state: storage directory does not exist or is not accessible.
+	at org.apache.hadoop.hdfs.server.namenode.FSImage.recoverStorageDirs(FSImage.java:327)
+	at org.apache.hadoop.hdfs.server.namenode.FSImage.recoverTransitionRead(FSImage.java:215)
+	at org.apache.hadoop.hdfs.server.namenode.FSNamesystem.loadFSImage(FSNamesystem.java:975)
+	at org.apache.hadoop.hdfs.server.namenode.FSNamesystem.loadFromDisk(FSNamesystem.java:681)
+	at org.apache.hadoop.hdfs.server.namenode.NameNode.loadNamesystem(NameNode.java:585)
+	at org.apache.hadoop.hdfs.server.namenode.NameNode.initialize(NameNode.java:645)
+	at org.apache.hadoop.hdfs.server.namenode.NameNode.<init>(NameNode.java:812)
+	at org.apache.hadoop.hdfs.server.namenode.NameNode.<init>(NameNode.java:796)
+	at org.apache.hadoop.hdfs.server.namenode.NameNode.createNameNode(NameNode.java:1493)
+	at org.apache.hadoop.hdfs.server.namenode.NameNode.main(NameNode.java:1559)
+19/07/31 23:30:29 INFO mortbay.log: Stopped HttpServer2$SelectChannelConnectorWithSafeStartup@0.0.0.0:50070
+19/07/31 23:30:29 INFO impl.MetricsSystemImpl: Stopping NameNode metrics system...
+19/07/31 23:30:29 INFO impl.MetricsSystemImpl: NameNode metrics system stopped.
+19/07/31 23:30:29 INFO impl.MetricsSystemImpl: NameNode metrics system shutdown complete.
+19/07/31 23:30:29 ERROR namenode.NameNode: Failed to start namenode.
+org.apache.hadoop.hdfs.server.common.InconsistentFSStateException: Directory /app/hadoop/tmp/dfs/name is in an inconsistent state: storage directory does not exist or is not accessible.
+	at org.apache.hadoop.hdfs.server.namenode.FSImage.recoverStorageDirs(FSImage.java:327)
+
+
+drwxrwxrwx 2 root root 4096 Jul 31 23:28 name
+tms@tms-Lenovo-ideapad-320-15ISK:~/tmsCodeGround/myInstallDir/hadoop-2.7.3/bin$ chmod 777 -R /app/hadoop/tmp/dfs
+
+Run cammand 
+
+
+tms@tms-Lenovo-ideapad-320-15ISK:~/tmsCodeGround/myInstallDir/hadoop-2.7.3/bin$ ./hdfs namenode
+
+-----------------------------------
+also below should be there
+cat /etc/hosts
+127.0.0.1	localhost tms-Lenovo-ideapad-320-15ISK
+
+
+---------------------------------------------
+
+RUn Jps
+
+6865 Worker
+6786 Master
+5779 ResourceManager
+6292 NameNode
+6405 DataNode
+4278 SparkSubmit
+1831 xdman.jar
+7416 Jps
+6619 SecondaryNameNode
+5884 NodeManager
