@@ -1,0 +1,150 @@
+
+----------------------------------------------------------------------------
+Demo 1: CodeDeploye standalone deployement (without CICD code pipeline)
+----------------------------------------------------------------------------
+1.create an EC2 instance : amazon linux 2 
+  Add tag to that instance Ex: environment  : dev
+  Security group
+	  1.ssh : 
+	  2.https from local
+  
+----------------------------------------------------------------------------
+
+2. IAM ROLES (create 2 role ):
+     1.create a ec2-role and give full s3 access to it and attach it to our EC2 instance so that it could copy the zip file         we provide.
+ 	Ex.myec2role → Give  permissions, AmazonEC2RoleforAWSCodeDeploy ,AmazonS3FullAccess
+
+     2. A role  for codedeploy  Ex. codedeployerole :  give codedeploy related all access.
+	  AmazonEC2FullAccess
+	  AWSCodeDeployFullAccess
+	  AWSCodeDeployRole
+	  AWSCodeDeployDeployerAccess
+	  AWSCodeDeployRoleForLambda
+
+Attach ec2 role to your Ec2 instances . codedeploye role, we need add later to coddeploye
+----------------------------------------------------------------------------
+
+2.Install apache server on it  --this can be skipped 
+
+sudo su
+yum -y update
+yum -y install httpd.x86_64
+systemctl enable httpd.service 
+systemctl start httpd.service 
+
+---------------------------------------------------------------------
+2.Install codedeploy agent on it (Not there by default on ec2 w need to install):
+
+(below commands are  for amazon linux 2 )
+Ref : https://docs.aws.amazon.com/codedeploy/latest/userguide/codedeploy-agent-operations-install-linux.html
+sudo yum -y update
+sudo yum -y install ruby 
+sudo yum install wget
+cd /home/ec2-user
+wget https://bucket-name.s3.region-identifier.amazonaws.com/latest/install
+
+for our region it will be as below
+wget https://aws-codedeploy-us-east-1.s3.us-east-1.amazonaws.com/latest/install
+
+Note : You need to prepare the url as per your region.
+fire commands  after sudo su  (it logs as root user)
+chmod +x ./install
+
+sudo su
+sudo ./install auto
+sudo service codedeploy-agent status
+sudo service codedeploy-agent start
+sudo service codedeploy-agent status
+
+---------------------------------------------------------------------
+Now go CodeDeploye and follow below steps
+
+1.Create application
+Application name:
+Compute platform : lambda/ECS/EC2  --select EC2
+
+
+2.Create deployment group
+name":
+Role : create 
+Deployment type:In-place
+Environment configuration : Amazon EC2 instances
+Add key value pair Ex. app_name :sampleapp1   --add same to EC2 instance as well
+Deployment settings : Allatonce
+Load balancer : Uncheck. As of now not needed
+
+
+
+go to application -->deployments-->create deployment
+select zip file on s3  : IMP Note : region of S3 must be same as that of Ec2.
+give file type : zip
+select : Don't fail the deployment to an instance if this lifecycle event on the instance fails
+select content option : Overwrite the content
+select ALL AT ONCE 
+select Rollback : disable
+
+
+check the events status
+
+
+Refer :
+https://docs.aws.amazon.com/codedeploy/latest/userguide/reference-appspec-file-example.html
+https://docs.aws.amazon.com/codedeploy/latest/userguide/reference-appspec-file.html
+
+if codedeploye gets successfull, go to EC2 and check the url
+#-----------------------------------------------------------------------------------------------------------
+
+Events we can see in coddeploye
+
+1.ApplicationStop
+2.DownloadBundle		
+3.BeforeInstall		
+4.Install		
+5.AfterInstall		
+6.ApplicationStart		
+7.ValidateService		
+
+
+
+Errors: 
+
+Errors:
+1.skipped  -- check if code deploye agent is up or not
+	sudo service codedeploy-agent status
+
+2..No such file or directory - /opt/codedeploy-agent/deployment-root/a64eb6ad-fa71-43b7-9f7b-9b0dc60a2d96/d-AJKBXDXX1/deployment-archive/*
+
+This error is because   
+I had mentioned source as  /*   in appspecs.yml
+we need to specify exact file name   or just /  for copying all src files to target
+
+3.undefined method `has_key?' for "location:Scripts/stop_server.sh runas:root":String
+we need to pass  root user to execute the commands and provide timeout as well
+runas: root
+
+4.failed : check if S3 bucket of zip is in same region .
+
+----end-----------------
+
+
+
+
+#--------------------------------------------------------------------------------------------------------------------------
+Demo 2: Integration of CodeDeploye with CodePipeline
+#--------------------------------------------------------------------------------------------------------------------------
+
+Once your codeDeploye works, if you want to integrate it with aws Codepipeline, Follow below steps
+
+1.Go to codePipeline -->create pipeline -->assign role(new/Existing) -->
+  Artifact store (Keep default)
+  Encryption key(keep default)
+
+2. source stage : Select codecommit  give Repository name&  Branch name: master
+ Change detection options :Amazon CloudWatch Events (recommended)
+
+3.Build Stage :Skip this step . optional (for PHP project it is not needed. In case of Java, you need to compile it and test)
+
+4.deploy stage  : Select CodDeploye project & deployement group
+
+Review and create and run the pipeline
+#--------------------------------------------------------------------------------------------------------------------------
