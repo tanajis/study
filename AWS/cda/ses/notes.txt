@@ -1,0 +1,46 @@
+
+
+DEMO 1:
+
+1.go to SES --> email address --> verify new email address.
+2.Check your email and verify
+3.new role for lambda with permisions of SES
+4.create lambda and paste and customize the code of demo1.py
+
+
+NOTE : Sender must be verified. In case of receptant, by default SES is in SANDBOX mode so receptant is also need tp be verified. You can raise ticket to AWS to remove SANDBOX mode.
+
+Note : ACCOUNT IN SANDBOX
+How can i send mail without verifying the recipients in amazon ses ? 
+Your SES account is in Sandbox Mode. You need to open a request with AWS to take your SES account out of Sandbox Mode. This is documented here.
+https://docs.aws.amazon.com/ses/latest/DeveloperGuide/request-production-access.html
+https://stackoverflow.com/questions/41724027/how-can-i-send-mail-without-verifying-the-recipients-in-amazon-ses
+
+
+
+DEMO 2: Using SMTP protocol
+
+You can send email through Amazon SES by using applications or programming languages that use the SMTP protocol. To learn more about the Amazon SES SMTP interface, see Using the Amazon SES SMTP Interface to Send Email.
+To send email by using the SMTP interface, you need the following information:
+
+Server Name:	
+email-smtp.us-east-1.amazonaws.com
+Port:	25, 465 or 587
+Use Transport Layer Security (TLS):	Yes
+Authentication:	Your SMTP credentials. See below for more information.
+
+1.Go to SMTP setting -->create my smtp credential-->download
+2.copy code and paste to lambda
+
+
+
+
+DEMO 3:
+  1.sending statistc : QUota ,limit , matrices etc
+  2.reputation dashboard - status of account - revive , suspended on the basic of any abuse happned from you mail id
+  3.Dedicated IP : If you want seperate IP which is not shared with other customers
+  4.Configuration set : you can catch and forward mails (sent, delivery failed, abuse,specific tag/subject etc,bounced , complaint Issues) to SNS , cloudwatch events or firehouse for further analysis.
+  5.SMTP setting : generate credentials
+  6.supression list : Amazon SES maintains a suppression list of recipient email addresses that have recently caused a hard bounce for any Amazon SES customer.
+  7.Rule sets : specific rules for receptants Ex. if mail from xyz@gmail.com -->save to S3 bucket/send to SNS topic
+  8.IP filter on receptants IP range
