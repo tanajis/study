@@ -1,0 +1,87 @@
+syllabus
+------------------------------------------------------------------------------------------------------------
+
+Session 1
+	1.region,AZ,
+  	2.IAM 
+	3.SG
+	3.keys
+	4.EC2-ssh, apache server,user data,AMI,EC2 types,
+	5.Elastic IP
+
+--------------------------------------------------------------------
+Session 2
+  6.ELB 					---Done  H -done
+  7.ASG 				-- Done  H -done
+  8.EBS 					--Done  H-done
+  9.Rout 53 				--Done
+  10.RDS & ARORA 			--Done
+  11.Elastic Cashe 			--Done  
+  12.VPC		 		--Done
+
+--------------------------------------------------------------------
+Session 3
+  13.S3 - intro ,versioning,Encryption, Security & bucket/object policies
+	static web hosting, CORS,consistancy model,perforamnce
+
+  14.Lambda -  						--Done
+  15.SNS and SQS and Kinesis				--Done
+
+--------------------------------------------------------------------
+session  4
+
+  16.Monitoring -cloudwatch , X ray and cloudtrail 	--Done
+  17.CLI - on linux and windows, install ,configure,dry run,sts decode,  --Done  
+  18.EC2 instance metadata ,					---Done
+  19.aws SDK,expo. backoff 					---Done
+
+
+--------------------------------------------------------------------
+Session 5
+  21.CICD							---Done
+	22.codecommit 						---Done
+	27.Beanstalk
+	25.codepipeline
+
+
+--------------------------------------------------------------------
+Session 6
+  23.codebuild
+  24.codedeploy
+  26.codestar
+
+--------------------------------------------------------------------
+Session 7
+  28.cloudformation --intro only ---Self Read
+  32.Sam
+  29.serverless - AWS Cognito
+
+
+--------------------------------------------------------------------
+Session 8
+  31.serverless -  Dynamodb
+  30.serverless - API gateway
+
+
+--------------------------------------------------------------------
+Session 9:
+        
+  34.ECS -container services ,ECR, farget
+
+
+--------------------------------------------------------------------
+session 10
+  35.Security : Encryption, KMS,encr. SDK
+  37.Security : secret manager, IAM detail,
+  38.cloudfront,Step function, simple email    service and Simple workflow service
+
+
+--------------------------------------------------------------------
+Session 11: 
+   Project
+   Sdk for other languages, lambda practices
+
+
+--------------------------------------------------------------------
+Session : 12
+  Exam preparation
