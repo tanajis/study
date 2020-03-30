@@ -1,0 +1,53 @@
+
+
+
+KMS
+
+1. aws managed keys : listed . we cand add/edit/delete
+2. Customer managed key : 
+        KMS
+        External
+        Custom key store (CloudHSM)
+3. AWS CloudHSM : u can integrate Custom key store (CloudHSM) here (option for KMS)
+
+
+Actions : enable/disable/schedule key deletion etc.
+
+Demo 1:
+      create key -->symetric (both for enc&decr) -->Origin as KMS -->Key administrators (give user thats has permision of admin access)  --> allow key deletion --> create
+      
+      create lambda --> add environment variable  as password and give values
+#-------------------------------------------------------------------------------------
+import json
+import os
+
+def lambda_handler(event, context):
+    # TODO implement
+    
+    
+    #read environment
+    mypassword = os.environ['mypassword']
+    print('mypassword:',mypassword)
+    
+#-------------------------------------------------------------------------------------
+
+      click on encryption configuration -->Enable encryption in transit-->select your KMS key name i both.
+      Now go to your env variable and click on Encrypt.  Copy code Snippet to decrep to notepad
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      Error :
+      
+  "errorMessage": "An error occurred (AccessDeniedException) when calling the Decrypt operation: The ciphertext refers to a customer master key that does not exist, does not exist in this region, or you are not allowed to access.",
+  
+  It means you DONT HAVE GIVEN KMS access to role of your lamba. Go to IAM and give permissions.
+
+        IAM-->role-->add inline policies-->kms all
+        
+        or Create policy name it &save and then attach to your lambda role
