@@ -10,9 +10,9 @@ https://www.guru99.com/how-to-install-hadoop.html
 localhost: tms@localhost: Permission denied (publickey).
 localhost: tms@localhost: Permission denied (publickey).
 
+ssh localhost hove error: ssh connection to host on port 22 refused, then install ssh and start
 
 sudo apt-get install ssh
-
 service ssh restart
 
 tms@tms-Lenovo-ideapad-320-15ISK:~$ ssh-keygen -t rsa -P ""
