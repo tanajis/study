@@ -11,6 +11,8 @@ localhost: tms@localhost: Permission denied (publickey).
 localhost: tms@localhost: Permission denied (publickey).
 
 
+sudo apt-get install ssh
+
 tms@tms-Lenovo-ideapad-320-15ISK:~$ ssh-keygen -t rsa -P ""
 Generating public/private rsa key pair.
 Enter file in which to save the key (/home/tms/.ssh/id_rsa): 
@@ -24,6 +26,9 @@ tms@tms-Lenovo-ideapad-320-15ISK:~$
 
 
 /usr/lib/jvm/java-8-openjdk-amd64
+
+
+
 
 
 
