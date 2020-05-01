@@ -139,6 +139,9 @@ UI Urls
 The default address of namenode web UI is http://localhost:50070/ 
 The default address of namenode server is hdfs://localhost:8020/
 
+Create file by below cammand:
+hdfs dfs -mkdir /tmsdev
+
 ---------------------------------------------------------------------------------
 errors:
  Call From localhost/127.0.0.1 to localhost:54310
@@ -185,6 +188,13 @@ tms@tms-Lenovo-ideapad-320-15ISK:~/tmsCodeGround/myInstallDir/hadoop-2.7.3/bin$ 
 also below should be there
 cat /etc/hosts
 127.0.0.1	localhost tms-Lenovo-ideapad-320-15ISK
+
+
+
+
+On consol web ui try creating folder 
+Error:Permission denied: user=dr.who, access=WRITE, inode="/":tms:supergroup:drwxr-xr-x
+
 
 
 ---------------------------------------------
