@@ -27,6 +27,10 @@ tms@tms-Lenovo-ideapad-320-15ISK:~$
 
 
 
+sudo apt-get install default-jdk
+
+check in folder /usr/lib/jvm
+
 /usr/lib/jvm/java-8-openjdk-amd64
 
 
