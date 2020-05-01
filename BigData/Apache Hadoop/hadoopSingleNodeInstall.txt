@@ -1,8 +1,8 @@
-
-#----------------------------------------------------------------------------------------
-@Auther : tanaji sutar
-#This file explains how to install single node clsuter on ubuntu
-#----------------------------------------------------------------------------------------
+########################################################################################
+# Auther 	 : Tanaji Sutar
+# Description	 : This file explains how to install single node clsuter on ubuntu
+# Date 		 : 01-05-2020
+########################################################################################
 
 https://linuxize.com/post/how-to-set-up-ssh-keys-on-ubuntu-1804/
 https://www.michael-noll.com/tutorials/running-hadoop-on-ubuntu-linux-single-node-cluster/
