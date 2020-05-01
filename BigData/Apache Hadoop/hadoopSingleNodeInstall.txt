@@ -149,6 +149,7 @@ Check with jps
 
 Check UI Urls:
 The default address of namenode web UI is http://localhost:50070/ 
+Cluster url : 				  http://localhost:8088/cluster
 The default address of namenode server is hdfs://localhost:8020/
 
 Create file by below cammand:
