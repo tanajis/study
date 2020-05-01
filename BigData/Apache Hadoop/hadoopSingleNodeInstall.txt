@@ -47,7 +47,7 @@ export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
 export PATH=$PATH:$JAVA_HOME/bin
 
 #------
-
+Below is for spark.. ignore as of nbow
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 export SPARK_HOME=/home/tms/tmsCodeGround/myInstallDir/spark-2.3.2-bin-hadoop2.7
 export PATH=$PATH:/home/tms/tmsCodeGround/myInstallDir/spark-2.3.2-bin-hadoop2.7/bin
@@ -120,7 +120,8 @@ hdfs namenode -format
 step
 
 go to sbin
-./start-yarn.sh  --yarn must be first
+(yarn must be first)
+./start-yarn.sh  
 ./start-dfs.sh
 
 Check with jps
@@ -131,6 +132,12 @@ Check with jps
 4004 Jps
 2858 SecondaryNameNode
 1823 xdman.jar
+
+
+UI Urls
+
+The default address of namenode web UI is http://localhost:50070/ 
+The default address of namenode server is hdfs://localhost:8020/
 
 ---------------------------------------------------------------------------------
 errors:
