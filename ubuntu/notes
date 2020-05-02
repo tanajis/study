@@ -1,1 +1,11 @@
+Error
 
+fsck error on boot: /dev/sda6: UNEXPECTED INCONSISTENCY; RUN fsck MANUALLY
+
+
+Solution
+
+fsck /dev/sda4 
+
+
+after comletion fire cammand: exit
