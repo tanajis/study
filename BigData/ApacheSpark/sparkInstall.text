@@ -33,6 +33,21 @@ Note : if not working in visual studi or pycharm close & restart visual studio
 Spark on ubuntu(Linux)
 #-------------------------------------------------------------------------------------
 
+Note java version must be matchung with java version specified on spark's website.
+It was java 8 and not java 8+ SO java 11 was not working for me. and giving error :
+pyspark.sql.utils.IllegalArgumentException: 'Unsupported class file major version 55' [duplicate]
+
+export HADOOP_HOME=/home/tms/myInstallDir/hadoop-2.8.0
+export PATH=$PATH:$HADOOP_HOME/bin
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+export PATH=$PATH:$JAVA_HOME/bin
+export SPARK_HOME=/home/tms/myInstallDir/spark-2.4.5-bin-hadoop2.7
+export PATH=$PATH:$SPARK_HOME/bin
+export PYTHONPATH=$SPARK_HOME/python/:$PYTHONPATH
+export PYTHONPATH=$SPARK_HOME/python/lib/py4j-0.10.7-src.zip:$PYTHONPATH
+export PATH=$PATH:$SPARK_HOME/python
+export PYSPARK_PYTHON=/usr/bin/python
+
 #-----------------------------------
 STANDALONE MODE of spark 
 #-----------------------------------
