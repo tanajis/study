@@ -37,6 +37,10 @@ Spark on ubuntu(Linux)
 STANDALONE MODE of spark 
 #-----------------------------------
 Note : JAVA_HOME must be set before moving for below.
+-This used standalone mode.
+-Sparks own cluster manager is used.
+-local file system is used.
+-No hadoop,yarn is used in this mode.
 
 step 1: just extract folder 
 step 2: go to sbin folder of spark and fire :  ./start-all.sh
