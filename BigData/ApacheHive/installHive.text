@@ -1,1 +1,29 @@
+download hive and extract
 
+
+open .bashrc and add below 
+export HIVE_HOME=/home/tms/myInstallDir/apache-hive-2.3.7-bin
+export PATH=$PATH:$HIVE_HOME/bin
+
+enshure that HADOOP_HOME is set 
+
+#-------------------------------------------------------------------------------
+install postgresql
+sudo apt-get install postgresql
+psql --help
+
+Now go to cammand line 
+sudo -u postgres psql
+
+postgres-# \password
+Enter new password:postgres
+Enter it again: postgres
+
+login using 
+user : postgres 
+password:postgres
+db : postgres
+post 5432
+
+
+#-------------------------------------------------------------------------------
