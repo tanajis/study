@@ -25,5 +25,31 @@ password:postgres
 db : postgres
 post 5432
 
-
 #-------------------------------------------------------------------------------
+
+hive-default.xml.template  to hive-site.xml
+
+
+  <property>
+    <name>javax.jdo.option.ConnectionPassword</name>
+    <value>postgres</value>
+    <description>password to use against metastore database</description>
+  </property>
+  
+  
+  <property>
+    <name>javax.jdo.option.ConnectionURL</name>
+   <value>jdbc:postgresql://localhost:3210;databaseName=metastore_db;create=true</value>
+    <description>
+      JDBC connect string for a JDBC metastore.
+      To use SSL to encrypt/authenticate the connection, provide database-specific SSL flag in the connection URL.
+      For example, jdbc:postgresql://myhost/db?ssl=true for postgres database.
+    </description>
+  </property>
+  
+  
+    <property>
+    <name>javax.jdo.option.ConnectionUserName</name>
+    <value>postgres</value>
+    <description>Username to use against metastore database</description>
+  </property>
