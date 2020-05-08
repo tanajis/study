@@ -71,3 +71,11 @@ hive-default.xml.template  to hive-site.xml
     <value>$HIVE_HOME/iotmp</value>
     <description>Temporary local directory for added resources in the remote file system.</description>
   </property>
+
+
+
+1. If we didnt set above dirs it gives error
+Caused by: java.net.URISyntaxException: Relative path in absolute URI: ${system:java.io.tmpdir%7D/$%7Bsystem:user.name%7D
+
+2.
+FAILED: SemanticException org.apache.hadoop.hive.ql.metadata.HiveException: java.lang.RuntimeException: Unable to instantiate org.apache.hadoop.hive.ql.metadata.SessionHiveMetaStoreClient
