@@ -53,3 +53,21 @@ hive-default.xml.template  to hive-site.xml
     <value>postgres</value>
     <description>Username to use against metastore database</description>
   </property>
+
+  <property>
+    <name>hive.querylog.location</name>
+    <value>$HIVE_HOME/iotmp</value>
+    <description>Location of Hive run time structured log file</description>
+  </property>
+
+  <property>
+    <name>hive.exec.local.scratchdir</name>
+    <value>$HIVE_HOME/iotmp</value>
+    <description>Local scratch space for Hive jobs</description>
+  </property>
+
+  <property>
+    <name>hive.downloaded.resources.dir</name>
+    <value>$HIVE_HOME/iotmp</value>
+    <description>Temporary local directory for added resources in the remote file system.</description>
+  </property>
