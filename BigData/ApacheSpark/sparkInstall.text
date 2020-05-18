@@ -64,3 +64,28 @@ step 3:go to bin folder and fire : pyspark or spark-shell
 #-----------------------------------
 SPEDO DISTRIBUTED MODE of Spark
 #-----------------------------------
+
+
+
+#-------------------------------------
+Spark with User provided hadoop
+#------------------------------------
+This option means that you must provide your hadoop jars, assuming it is installed on your cluster
+
+https://spark.apache.org/docs/2.3.1/hadoop-provided.html
+https://stackoverflow.com/questions/35502046/what-is-pre-build-with-user-provided-hadoop-package
+
+
+
+### in conf/spark-env.sh ###
+
+# If 'hadoop' binary is on your PATH
+export SPARK_DIST_CLASSPATH=$(hadoop classpath)
+
+# With explicit path to 'hadoop' binary
+export SPARK_DIST_CLASSPATH=$(/path/to/hadoop/bin/hadoop classpath)
+
+# Passing a Hadoop configuration directory
+export SPARK_DIST_CLASSPATH=$(hadoop --config /path/to/configs classpath)
+
+
