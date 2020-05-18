@@ -1,3 +1,7 @@
+Note : Always download binary. Binary means you can diretly use, no need to compile.
+If you download source, it is java code only, ypu need to comile ,create binary and later need to use that binary.
+
+
 
 #-------------------------------------------------------------------------------------
 Windows setup for spark:
