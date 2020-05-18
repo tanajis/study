@@ -156,10 +156,11 @@ Check with jps
 2858 SecondaryNameNode
 1823 xdman.jar
 
-Check UI Urls:
-The default address of namenode web UI is http://localhost:50070/ 
-Cluster url : 				  http://localhost:8088/cluster
-The default address of namenode server is hdfs://localhost:8020/
+Check UI at the the default address
+-Hadoop namenode and filesystem web UI : http://localhost:50070/ 
+-Hadoop Cluster url     : http://localhost:8088/cluster
+-hadoop file system address(file path for coding) : hdfs://localhost:54310
+
 Note : for spark master url 			http://localhost:8080/
 Create file by below cammand:
 hdfs dfs -mkdir /tmsdev
