@@ -8,6 +8,9 @@ https://linuxize.com/post/how-to-set-up-ssh-keys-on-ubuntu-1804/
 https://www.michael-noll.com/tutorials/running-hadoop-on-ubuntu-linux-single-node-cluster/
 https://www.guru99.com/how-to-install-hadoop.html
 
+Note : Download hadoop BINARY from apache website.
+
+
 # -----------------------------------------------------------------------------------------
 Step 1: Setup SSH localhost 
 # -----------------------------------------------------------------------------------------
