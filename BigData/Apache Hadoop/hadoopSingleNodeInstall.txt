@@ -40,7 +40,8 @@ Step 2: Install Java
 
 sudo apt-get install default-jdk
 check in folder /usr/lib/jvm
-/usr/lib/jvm/java-8-openjdk-amd64
+
+/usr/lib/jvm/default-java or /usr/lib/jvm/java-8-openjdk-amd64 what you prefer. set it as Java Path.
 
 How to locate ?  echo $JAVA_PATH
 
