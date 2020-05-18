@@ -26,6 +26,13 @@ https://www.youtube.com/watch?v=WQErwxRTiW0
  4.add environment variable 
 
 
+
+#-------------------
+
+SPARK_MASTER_PORT	Start the master on a different port (default: 7077).
+SPARK_MASTER_WEBUI_PORT	Port for the master web UI (default: 8080).
+SPARK_WORKER_WEBUI_PORT	Port for the worker web UI (default: 8081).
+
 add to PATH  
 %SPARK_HOME%\bin   
 C:\Python27\python.exe
