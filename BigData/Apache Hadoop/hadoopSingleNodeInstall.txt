@@ -84,12 +84,17 @@ export JAVA_HOME =/usr/lib/jvm/java-8-openjdk-amd64
 # -----------------------------------------------------------------------------------------
 step 5 : Hadoop conf files 
 # -----------------------------------------------------------------------------------------
+Create temporary folders 
+1./home/tms/tmsCodeGround/myInstallDir/hadoop-2.7.3/hadoop_temp
+2./home/tms/tmsCodeGround/myInstallDir/hadoop-2.7.3/datanode_temp
+
+
 5.1. change core-site.sh Add  below
 
 <configuration>
 <property>
 <name>hadoop.tmp.dir</name>
-<value>/home/tms/tmsCodeGround/myInstallDir/hadoop-2.7.3/mytemp</value>
+<value>/home/tms/tmsCodeGround/myInstallDir/hadoop-2.7.3/hadoop_temp</value>
 <description>Parent directory for other temporary directories.</description>
 </property>
 <property>
@@ -110,7 +115,7 @@ step 5 : Hadoop conf files
 </property>
 <property>
 <name>dfs.datanode.data.dir</name>
-<value>/home/tms/tmsCodeGround/myInstallDir/hadoop-2.7.3/tms_datanodetempdir</value>
+<value>/home/tms/tmsCodeGround/myInstallDir/hadoop-2.7.3/datanode_temp</value>
 </property>
 </configuration>
 
