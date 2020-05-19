@@ -84,7 +84,7 @@ SPEDO DISTRIBUTED MODE of Spark
 
 
 #----------------------------------------------------------------------------------------------------
-Spark with User provided hadoop 
+Spark with User provided hadoop (Ubuntu and linuxmint - hadoop/yarn mode)
 #---------------------------------------------------------------------------------------------------
 -This option means that you must provide your hadoop jars, assuming it is installed on your cluster
 -Any hadoop version. Hadoop needs to be installed and HADOOP_HOME must be set already)
