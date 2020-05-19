@@ -9,7 +9,7 @@ https://www.michael-noll.com/tutorials/running-hadoop-on-ubuntu-linux-single-nod
 https://www.guru99.com/how-to-install-hadoop.html
 
 Note : Download hadoop BINARY from apache website.
-
+	Install edito VIM on linux first with cammand: sudo apt-get install vim
 
 # -----------------------------------------------------------------------------------------
 Step 1: Setup SSH localhost 
