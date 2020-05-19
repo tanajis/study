@@ -43,6 +43,11 @@ Note : if not working in visual studi or pycharm close & restart visual studio
 #-------------------------------------------------------------------------------------
 Spark on ubuntu(Linux)
 #-------------------------------------------------------------------------------------
+1.install scala : sudp apt-get install scala
+
+2.
+
+
 
 Note java version must be matchung with java version specified on spark's website.
 It was java 8 and not java 8+ SO java 11 was not working for me. and giving error :
@@ -78,24 +83,49 @@ SPEDO DISTRIBUTED MODE of Spark
 
 
 
-#-------------------------------------
-Spark with User provided hadoop
-#------------------------------------
-This option means that you must provide your hadoop jars, assuming it is installed on your cluster
+#----------------------------------------------------------------------------------------------------
+Spark with User provided hadoop 
+#---------------------------------------------------------------------------------------------------
+-This option means that you must provide your hadoop jars, assuming it is installed on your cluster
+-Any hadoop version. Hadoop needs to be installed and HADOOP_HOME must be set already)
 
+1.download spark without hadoop(user provided hadoop) and extract
+
+2.go to spark/conf directory and copy slaves.template to slaves
+  It contains hostname or IP of slaves. By default it has only one that is localhost
+
+3.copy spark-env.sh.template to spark-env.sh and add below at the end:
+ export SPARK_DIST_CLASSPATH=$(hadoop classpath)
+ export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+ export SPARK_MASTER_HOST=localhost
+ 
+ 
+
+Spark Defaults has below :
+# Example:
+# spark.master                     spark://master:7077
+# spark.eventLog.enabled           true
+# spark.eventLog.dir               hdfs://namenode:8021/directory
+# spark.serializer                 org.apache.spark.serializer.KryoSerializer
+# spark.driver.memory              5g
+# spark.executor.extraJavaOptions  -XX:+PrintGCDetails -Dkey=value -Dnumbers="one two three"
+ 
+Note : 
 https://spark.apache.org/docs/2.3.1/hadoop-provided.html
 https://stackoverflow.com/questions/35502046/what-is-pre-build-with-user-provided-hadoop-package
 
-
-
 ### in conf/spark-env.sh ###
+Any one of below:
 
 # If 'hadoop' binary is on your PATH
 export SPARK_DIST_CLASSPATH=$(hadoop classpath)
 
+or 
+
 # With explicit path to 'hadoop' binary
 export SPARK_DIST_CLASSPATH=$(/path/to/hadoop/bin/hadoop classpath)
 
+or 
 # Passing a Hadoop configuration directory
 export SPARK_DIST_CLASSPATH=$(hadoop --config /path/to/configs classpath)
 
