@@ -100,7 +100,11 @@ export SPARK_DIST_CLASSPATH=$(/home/tms/myInstallDir/hadoop-2.10.0/bin/hadoop cl
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 export SPARK_MASTER_HOST=localhost
 
- 
+
+NOTE : submit spark apps as below
+
+spark-submit a.py --master spark://localhost:7077 --deploy-mode cluster
+
 
 Spark Defaults has below :
 # Example:
