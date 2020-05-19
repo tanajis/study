@@ -46,10 +46,11 @@ tms@tms-Lenovo-ideapad-320-15ISK:~$
 Step 2: Install Java 
 # -----------------------------------------------------------------------------------------
 
-sudo apt-get install default-jdk
-check in folder /usr/lib/jvm
+Check on hadoop website which java is needed.
+sudo apt install openjdk-8-jdk-headless
 
-/usr/lib/jvm/default-java or /usr/lib/jvm/java-8-openjdk-amd64 what you prefer. set it as Java Path.
+check in folder /usr/lib/jvm
+set it as Java Path : /usr/lib/jvm/java-8-openjdk-amd64 
 
 How to locate ?  echo $JAVA_PATH
 
@@ -62,7 +63,7 @@ go to home folder and fire : vi .bashrc
 # Set hadoop home
 export HADOOP_HOME=/home/tms/myInstallDir/hadoop-2.10.0
 export PATH=$PATH:$HADOOP_HOME/bin
-export JAVA_HOME=/usr/lib/jvm/default-java
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 export PATH=$PATH:$JAVA_HOME/bin
 
 After edit fire : source .bashrc
