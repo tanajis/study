@@ -95,10 +95,11 @@ Spark with User provided hadoop (Ubuntu and linuxmint - hadoop/yarn mode)
   It contains hostname or IP of slaves. By default it has only one that is localhost
 
 3.copy spark-env.sh.template to spark-env.sh and add below at the end:
- export SPARK_DIST_CLASSPATH=$(hadoop classpath)
- export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
- export SPARK_MASTER_HOST=localhost
- 
+
+export SPARK_DIST_CLASSPATH=$(/home/tms/myInstallDir/hadoop-2.10.0/bin/hadoop classpath)
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+export SPARK_MASTER_HOST=localhost
+
  
 
 Spark Defaults has below :
