@@ -14,23 +14,31 @@ Note : Download hadoop BINARY from apache website.
 # -----------------------------------------------------------------------------------------
 Step 1: Setup SSH localhost 
 # -----------------------------------------------------------------------------------------
-
+1.Install and start ssh service as below:
 sudo apt-get install ssh
 service ssh restart
 
+Now fire cammand: ssh localhost
 localhost: tms@localhost: Permission denied (publickey).
 localhost: tms@localhost: Permission denied (publickey).
-
 ssh localhost hove error: ssh connection to host on port 22 refused, then install ssh and start
 
+2. Generate public key to enable ssh localhost
 
-tms@tms-Lenovo-ideapad-320-15ISK:~$ ssh-keygen -t rsa -P ""
+Fire cammand below and press enter for each popup
+Cammand: ssh-keygen -t rsa -P ""
+
+...
 Generating public/private rsa key pair.
 Enter file in which to save the key (/home/tms/.ssh/id_rsa): 
 /home/tms/.ssh/id_rsa already exists.
 Overwrite (y/n)? 
-tms@tms-Lenovo-ideapad-320-15ISK:~$ cat $HOME/.ssh/id_rsa.pub >> $HOME/.ssh/authorized_keys
-tms@tms-Lenovo-ideapad-320-15ISK:~$ ssh localhost
+
+Cammand: cat $HOME/.ssh/id_rsa.pub >> $HOME/.ssh/authorized_keys
+Cammand: ssh localhost
+
+It will show as below then ssh is successfull.
+
 Last login: Sat Dec 29 10:52:44 2018 from 127.0.0.1
 tms@tms-Lenovo-ideapad-320-15ISK:~$ 
 
