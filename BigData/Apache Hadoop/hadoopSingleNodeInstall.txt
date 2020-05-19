@@ -62,7 +62,7 @@ go to home folder and fire : vi .bashrc
 # Set hadoop home
 export HADOOP_HOME=/home/tms/myInstallDir/hadoop-2.10.0
 export PATH=$PATH:$HADOOP_HOME/bin
-export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+export JAVA_HOME=/usr/lib/jvm/default-java
 export PATH=$PATH:$JAVA_HOME/bin
 
 After edit fire : source .bashrc
