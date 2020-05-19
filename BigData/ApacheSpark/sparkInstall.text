@@ -89,7 +89,7 @@ Spark with User provided hadoop (Ubuntu and linuxmint - hadoop/yarn mode)
 -This option means that you must provide your hadoop jars, assuming it is installed on your cluster
 -Any hadoop version. Hadoop needs to be installed and HADOOP_HOME must be set already)
 
-1.download spark without hadoop(user provided hadoop) and extract
+1.download spark without hadoop(user provided hadoop) and extract  Ex. spark-2.4.5-bin-without-hadoop.tgz
 
 2.go to spark/conf directory and copy slaves.template to slaves
   It contains hostname or IP of slaves. By default it has only one that is localhost
@@ -130,4 +130,4 @@ or
 # Passing a Hadoop configuration directory
 export SPARK_DIST_CLASSPATH=$(hadoop --config /path/to/configs classpath)
 
-
+Ref : https://medium.com/ymedialabs-innovation/apache-spark-on-a-multi-node-cluster-b75967c8cb2b
