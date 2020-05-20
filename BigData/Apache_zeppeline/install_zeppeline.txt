@@ -1,1 +1,30 @@
 Download from https://zeppelin.apache.org/
+
+
+1 download : https://zeppelin.apache.org/download.html and extract
+
+copy zeppelin-env.sh.template to zeppelin-env.sh and search and set below:
+ 
+# export JAVA_HOME=
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+
+# Spark master url. eg. spark://master_addr:7077. Leave empty if you want to use local mode. 
+# Note if we keep empty, then zeppeline install its own spark and run it in local mode.But We have already installed 
+#spark hence giving my url here
+export MASTER=spark://localhost:7077
+
+# export ZEPPELIN_ADDR                          # Bind address (default 127.0.0.1)
+# export ZEPPELIN_PORT                          # port number to listen (default 8080) but spark master has it.
+export ZEPPELIN_PORT=8087 
+
+# export ZEPPELIN_NOTEBOOK_DIR   		# Where notebook saved
+export ZEPPELIN_NOTEBOOK_DIR=/home/tms/workspace/myzeppeline-notebooks
+export SPARK_HOME=/home/tms/myInstallDir/spark
+
+
+
+
+Step 2: Go to zeppeline folder and run below cammand to start zeppeline
+bin/zeppelin-daemon.sh start
+
+Step 3 check url :  localhost:8087
