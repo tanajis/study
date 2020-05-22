@@ -23,10 +23,17 @@ Step 2: Configure derby database
 Download derby by below cammand:
 get http://archive.apache.org/dist/db/derby/db-derby-10.4.2.0/db-derby-10.4.2.0-bin.tar.gz
 
+Make sure that DERBY_HOME is set in .bashrc.
 mkdir $DERBY_HOME/data
 
-tms@tms-mint:~/myInstallDir/db-derby-10.4.2.0-bin/bin$ ./setNetworkClientCP
-tms@tms-mint:~/myInstallDir/db-derby-10.4.2.0-bin/bin$ ./startNetworkServer
+Start Derby database:(& is for background process)
+sh $DERBY_HOME/bin/setNetworkClientCP &
+sh $DERBY_HOME/bin/startNetworkServer &
+
+Or go to folder and fire manually.
+cd $DERBY_HOME/bin
+./setNetworkClientCP
+./startNetworkServer
 
 If any error comes, check error section at the end of this file.
 # --------------------------------------------------------------------------------------------------------------
