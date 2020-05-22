@@ -1,1 +1,146 @@
 
+
+# --------------------------------------------------------------------------------------------------------------
+Add below to .bashrc
+
+export HIVE_HOME=/home/tms/myInstallDir/hive
+export PATH=$PATH:$HIVE_HOME/bin
+export CLASSPATH=$CLASSPATH:/home/tms/myInstallDir/hadoop-2.10.0/lib/*:.
+export CLASSPATH=$CLASSPATH:/home/tms/myInstallDir/lib/*:.
+export DERBY_HOME=/home/tms/myInstallDir/db-derby-10.4.2.0-bin
+export PATH=$PATH:$DERBY_HOME/bin
+export CLASSPATH=$CLASSPATH:$DERBY_HOME/lib/derby.jar:$DERBY_HOME/lib/derbytools.jar
+
+
+# --------------------------------------------------------------------------------------------------------------
+
+# --------------------------------------------------------------------------------------------------------------
+
+Download derby
+
+get http://archive.apache.org/dist/db/derby/db-derby-10.4.2.0/db-derby-10.4.2.0-bin.tar.gz
+
+
+
+source ~/.bashrc
+
+
+mkdir $DERBY_HOME/data
+
+
+tms@tms-mint:~/myInstallDir/db-derby-10.4.2.0-bin/bin$ ./setNetworkClientCP
+tms@tms-mint:~/myInstallDir/db-derby-10.4.2.0-bin/bin$ ./startNetworkServer
+
+# --------------------------------------------------------------------------------------------------------------
+cd $HIVE_HOME/conf
+
+tms@tms-mint:~/myInstallDir/hive/conf$ cp hive-env.sh.template hive-env.sh
+tms@tms-mint:~/myInstallDir/hive/conf$ vi hive-env.sh
+
+set hadoop home
+/home/tms/myInstallDir/hadoop-2.10.0
+
+---------------
+$ cd $HIVE_HOME/conf
+$ cp hive-default.xml.template hive-site.xml
+
+
+<property>
+   <name>javax.jdo.option.ConnectionURL</name>
+   <value>jdbc:derby://localhost:1527/metastore_db;create=true </value>
+   <description>JDBC connect string for a JDBC metastore </description>
+</property>
+
+
+
+Create a file named jpox.properties and add the following lines into it:
+
+javax.jdo.PersistenceManagerFactoryClass =
+
+org.jpox.PersistenceManagerFactoryImpl
+org.jpox.autoCreateSchema = false
+org.jpox.validateTables = false
+org.jpox.validateColumns = false
+org.jpox.validateConstraints = false
+org.jpox.storeManagerType = rdbms
+org.jpox.autoCreateSchema = true
+org.jpox.autoStartMechanismMode = checked
+org.jpox.transactionIsolation = read_committed
+javax.jdo.option.DetachAllOnCommit = true
+javax.jdo.option.NontransactionalRead = true
+javax.jdo.option.ConnectionDriverName = org.apache.derby.jdbc.ClientDriver
+javax.jdo.option.ConnectionURL = jdbc:derby://hadoop1:1527/metastore_db;create = true
+javax.jdo.option.ConnectionUserName = APP
+javax.jdo.option.ConnectionPassword = mine
+
+
+
+
+
+
+
+
+
+--------------
+tms@tms-mint:~/myInstallDir/db-derby-10.4.2.0-bin$ hdfs dfs -mkdir /user/hive
+tms@tms-mint:~/myInstallDir/db-derby-10.4.2.0-bin$ hdfs dfs -mkdir /user/hive/warehouse
+tms@tms-mint:~/myInstallDir/db-derby-10.4.2.0-bin$ hdfs dfs -chmod g+w /tmp
+tms@tms-mint:~/myInstallDir/db-derby-10.4.2.0-bin$ hdfs dfs -chmod g+w /user/hive/warehouse
+
+
+
+
+${system:java.io.tmpdir}/${system:user.name}
+by 
+/home/tms/myInstallDir/all_temp_dir
+
+/home/tms/myInstallDir/all_temp_dir/hive_temp
+
+
+
+${system:java.io.tmpdir}
+by 
+
+/home/tms/myInstallDir/all_temp_dir/hive_temp/javaiotemp
+
+
+
+hive --service metastore 
+
+#----------------------------------------------------------------------------------------------------
+Error : access denied ("java.net.SocketPermission" "localhost:1527" "listen,resolve")
+java.security.AccessControlException: access denied ("java.net.SocketPermission" "localhost:1527" "listen,resolve")
+
+Solution :
+find the which java_home is used by derby and add policy
+sudo vi /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/security/java.policy 
+
+Add below  at end :
+
+grant {
+    permission java.net.SocketPermission "localhost:1527", "listen";
+};
+
+And then Fire cammand: /myInstallDir/db-derby-10.4.2.0-bin/bin$ ./startNetworkServer
+#----------------------------------------------------------------------------------------------------
+
+
+Error
+
+Caused by: MetaException(message:Version information not found in metastore. )
+
+Solution:
+In hive-site.xml set below property to false
+
+hive.metastore.schema.verification  to false
+
+#-------------------------------------------------
+
+Error:
+org.datanucleus.store.rdbms.exceptions.MissingTableException: Required table missing : "DBS" in Catalog "" Schema "". DataNucleus requires this table to perform its persistence operations. Either your MetaData is incorrect, or you need to enable "datanucleus.schema.autoCreateTables"
+
+
+Solution:
+    <name>datanucleus.schema.autoCreateAll</name>
+    <value>true</value>
+
