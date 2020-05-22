@@ -1,6 +1,10 @@
 
+I refered https://www.tutorialspoint.com/hive/hive_installation.htm
+
 # --------------------------------------------------------------------------------------------------------------
-Add below to .bashrc
+Step 1: modify .bashrc
+
+Add below to .bashrc for Hive
 
 export HIVE_HOME=/home/tms/myInstallDir/hive
 export PATH=$PATH:$HIVE_HOME/bin
@@ -11,35 +15,36 @@ export PATH=$PATH:$DERBY_HOME/bin
 export CLASSPATH=$CLASSPATH:$DERBY_HOME/lib/derby.jar:$DERBY_HOME/lib/derbytools.jar
 
 
-# --------------------------------------------------------------------------------------------------------------
-
-# --------------------------------------------------------------------------------------------------------------
-
-Download derby
-
-get http://archive.apache.org/dist/db/derby/db-derby-10.4.2.0/db-derby-10.4.2.0-bin.tar.gz
-
-
-
 source ~/.bashrc
 
+# --------------------------------------------------------------------------------------------------------------
+Step 2: Configure derby database
+
+Download derby by below cammand:
+get http://archive.apache.org/dist/db/derby/db-derby-10.4.2.0/db-derby-10.4.2.0-bin.tar.gz
 
 mkdir $DERBY_HOME/data
-
 
 tms@tms-mint:~/myInstallDir/db-derby-10.4.2.0-bin/bin$ ./setNetworkClientCP
 tms@tms-mint:~/myInstallDir/db-derby-10.4.2.0-bin/bin$ ./startNetworkServer
 
+If any error comes, check error section at the end of this file.
 # --------------------------------------------------------------------------------------------------------------
+
+Step 3: modify hive-conf.sh file
+
 cd $HIVE_HOME/conf
 
 tms@tms-mint:~/myInstallDir/hive/conf$ cp hive-env.sh.template hive-env.sh
 tms@tms-mint:~/myInstallDir/hive/conf$ vi hive-env.sh
 
-set hadoop home
-/home/tms/myInstallDir/hadoop-2.10.0
+set hadoop home by adding below line at the end.
+export HADOOP_HOME=/home/tms/myInstallDir/hadoop-2.10.0
 
----------------
+# --------------------------------------------------------------------------------------------------------------
+
+Step 3: modify hive-site.xml
+
 $ cd $HIVE_HOME/conf
 $ cp hive-default.xml.template hive-site.xml
 
@@ -50,6 +55,10 @@ $ cp hive-default.xml.template hive-site.xml
    <description>JDBC connect string for a JDBC metastore </description>
 </property>
 
+
+Also in hive-site.xml
+1.set hive.metastore.schema.verification  to false
+2.set datanucleus.schema.autoCreateAll    to true
 
 
 Create a file named jpox.properties and add the following lines into it:
@@ -73,18 +82,12 @@ javax.jdo.option.ConnectionUserName = APP
 javax.jdo.option.ConnectionPassword = mine
 
 
+Now , Create Folders in hadoop for Hive
 
-
-
-
-
-
-
---------------
-tms@tms-mint:~/myInstallDir/db-derby-10.4.2.0-bin$ hdfs dfs -mkdir /user/hive
-tms@tms-mint:~/myInstallDir/db-derby-10.4.2.0-bin$ hdfs dfs -mkdir /user/hive/warehouse
-tms@tms-mint:~/myInstallDir/db-derby-10.4.2.0-bin$ hdfs dfs -chmod g+w /tmp
-tms@tms-mint:~/myInstallDir/db-derby-10.4.2.0-bin$ hdfs dfs -chmod g+w /user/hive/warehouse
+hdfs dfs -mkdir /user/hive
+hdfs dfs -mkdir /user/hive/warehouse
+hdfs dfs -chmod g+w /tmp
+hdfs dfs -chmod g+w /user/hive/warehouse
 
 
 Now in Hive-site.xml replace as below:
@@ -100,14 +103,16 @@ It will change below configs
     3.hive.downloaded.resources.dir
     4.hive.exec.local.scratchdir
 
-${system:java.io.tmpdir}
-by 
-
+2. Replace ${system:java.io.tmpdir} by 
 /home/tms/myInstallDir/all_temp_dir/hive_temp/javaiotemp
 
 
 
+
+Finally start hive service as below:
 hive --service metastore 
+
+
 
 #----------------------------------------------------------------------------------------------------
 Error : access denied ("java.net.SocketPermission" "localhost:1527" "listen,resolve")
@@ -125,7 +130,6 @@ grant {
 
 And then Fire cammand: /myInstallDir/db-derby-10.4.2.0-bin/bin$ ./startNetworkServer
 #----------------------------------------------------------------------------------------------------
-
 
 Error
 
@@ -146,3 +150,17 @@ Solution:
     <name>datanucleus.schema.autoCreateAll</name>
     <value>true</value>
 
+
+#-------------------------------------------------
+
+Error
+
+FAILED: SemanticException org.apache.hadoop.hive.ql.metadata.HiveException: java.lang.RuntimeException: Unable to instantiate org.apache.hadoop.hive.ql.metadata.SessionHiveMetaStoreClient
+
+
+Solution :
+You need to start derby server each time you start system.
+
+Go to derby bin folder and fire:  ./startNetworkServer
+
+#-------------------------------------------------
