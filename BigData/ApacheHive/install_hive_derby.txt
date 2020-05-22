@@ -1,5 +1,4 @@
 
-
 # --------------------------------------------------------------------------------------------------------------
 Add below to .bashrc
 
@@ -20,11 +19,13 @@ Download derby
 
 get http://archive.apache.org/dist/db/derby/db-derby-10.4.2.0/db-derby-10.4.2.0-bin.tar.gz
 
+
+
 source ~/.bashrc
+
 
 mkdir $DERBY_HOME/data
 
-Start Derby database:
 
 tms@tms-mint:~/myInstallDir/db-derby-10.4.2.0-bin/bin$ ./setNetworkClientCP
 tms@tms-mint:~/myInstallDir/db-derby-10.4.2.0-bin/bin$ ./startNetworkServer
@@ -86,15 +87,18 @@ tms@tms-mint:~/myInstallDir/db-derby-10.4.2.0-bin$ hdfs dfs -chmod g+w /tmp
 tms@tms-mint:~/myInstallDir/db-derby-10.4.2.0-bin$ hdfs dfs -chmod g+w /user/hive/warehouse
 
 
+Now in Hive-site.xml replace as below:
+Make sure folder are created.
 
-
-${system:java.io.tmpdir}/${system:user.name}
-by 
-/home/tms/myInstallDir/all_temp_dir
+1.Replace ${system:java.io.tmpdir}/${system:user.name} by 
 
 /home/tms/myInstallDir/all_temp_dir/hive_temp
 
-
+It will change below configs
+    1.hive.querylog.location
+    2.hive.server2.logging.operation.log.location
+    3.hive.downloaded.resources.dir
+    4.hive.exec.local.scratchdir
 
 ${system:java.io.tmpdir}
 by 
@@ -110,9 +114,7 @@ Error : access denied ("java.net.SocketPermission" "localhost:1527" "listen,reso
 java.security.AccessControlException: access denied ("java.net.SocketPermission" "localhost:1527" "listen,resolve")
 
 Solution :
-find the which java_home is used by derby . Go to derby/bin and fire ./sysinfo   and there check JAVA_HOME
-
-GO to that JAVA jre and add policy
+find the which java_home is used by derby and add policy
 sudo vi /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/security/java.policy 
 
 Add below  at end :
